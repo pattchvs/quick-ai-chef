@@ -5,13 +5,8 @@ import './Recipe.css'
 
 const Recipe = ({ recipe }) => {
   return (
-      <div>
-
         <div  dangerouslySetInnerHTML={{ __html: recipe }} />
-      </div>
-      
-      
-
+  
   );
 };
 

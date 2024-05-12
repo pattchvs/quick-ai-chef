@@ -12,7 +12,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("Sua key do Google Gemini aqui");
+  const genAI = new GoogleGenerativeAI("Insira sua key da Api do Google Gemini aqui")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
 
@@ -21,7 +21,7 @@ const App = () => {
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
    
-    const prompt = `Faça uma receita gostosa, nutritiva e criativa usando os seguintes ingredientes: ${ingredients}. Envie apenas com as tags html e no final uma tabela nutricional. Envie o texto sem o DOCTYPE, sem a tag <HTML>, sem <HEAD>, sem <BODY> e <FOOTER>. Use apenas tags simples como H2, P, etc de HTML Semântico. A receita fará parte apenas de uma parte do site, NÃO É UM SITE NOVO. OU SEJA, NÃO É UM ARQUIVO DE HTML NOVO. Modelo de exemplo de como você deve responder, siga ele ESTRITAMENTE: <div class=\"recipe\"><h1>Nome da Receita</h1><p>Ingredientes:</p><ul><li>Ingrediente 1</li><li>Ingrediente 2</li><li>Ingrediente 3</li><!-- Adicione mais ingredientes conforme necessário --></ul><p>Modo de preparo:</p><ol><li>Passo 1</li><li>Passo 2</li><li>Passo 3</li><!-- Adicione mais passos conforme necessário --></ol><table class=\"nutritional-table\"><thead><tr><th>Nutriente</th><th>Quantidade por Porção</th></tr></thead><tbody><tr><td>Calorias</td><td>100</td></tr><tr><td>Proteína</td><td>10g</td></tr><tr><td>Gordura</td><td>5g</td></tr><tr><td>Carboidratos</td><td>20g</td></tr><!-- Adicione mais nutrientes conforme necessário --></tbody></table></div>`;
+    const prompt = `Faça uma receita gostosa, nutritiva e criativa usando os seguintes ingredientes: ${ingredients}. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Envie apenas com as tags html e no final uma tabela nutricional. Envie o texto sem o DOCTYPE, sem a tag <HTML>, sem <HEAD>, sem <BODY> e <FOOTER>. Use apenas tags simples como H2, P, etc de HTML Semântico. A receita fará parte apenas de uma parte do site, NÃO É UM SITE NOVO. OU SEJA, NÃO É UM ARQUIVO DE HTML NOVO. Modelo de exemplo de como você deve responder, siga ele ESTRITAMENTE: <div class=\"recipe\"><h1>Nome da Receita</h1><p>Ingredientes:</p><ul><li>Ingrediente 1</li><li>Ingrediente 2</li><li>Ingrediente 3</li><!-- Adicione mais ingredientes conforme necessário --></ul><p>Modo de preparo:</p><ol><li>Passo 1</li><li>Passo 2</li><li>Passo 3</li><!-- Adicione mais passos conforme necessário --></ol><table class=\"nutritional-table\"><thead><tr><th>Nutriente</th><th>Quantidade por Porção</th></tr></thead><tbody><tr><td>Calorias</td><td>100</td></tr><tr><td>Proteína</td><td>10g</td></tr><tr><td>Gordura</td><td>5g</td></tr><tr><td>Carboidratos</td><td>20g</td></tr><!-- Adicione mais nutrientes conforme necessário --></tbody></table></div>`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -35,7 +35,7 @@ const App = () => {
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
     
-    const prompt = `Responda como um verdadeiro chefe de cozinha. Seja direto mas seja educado. Você recebeu a seguinte duvida:${askedDoubt}. Veja esse modelo de como você deve responder: Veja esse modelo de exemplo de como você deve responder: <div class=\"recipe\"><h1>Repetir Exatamente a mesma Pergunta Feita</h1><p>Resposta da pergunta</p></div>`;
+    const prompt = `Responda como um verdadeiro chefe de cozinha. Seja direto mas seja educado. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Você recebeu a seguinte duvida:${askedDoubt}. Veja esse modelo de como você deve responder: Veja esse modelo de exemplo de como você deve responder: <div class=\"recipe\"><h1>Repetir Exatamente a mesma Pergunta Feita</h1><p>Resposta da pergunta</p></div>`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -63,7 +63,7 @@ const App = () => {
     setLoading(true)
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
 
-    const prompt = `Analise a imagem e se não houver ingredientes não faça nenhuma receita e apenas avise pedindo ingredientes válidos. Caso haja ingredientes REAIS na imagem faça uma receita gostosa, nutritiva, com os passos bem detalhados e criativa usando os ingredientes da imagem.  Envie apenas com as tags html e no final uma tabela nutricional. Envie o texto sem o DOCTYPE, sem a tag <HTML>, sem <HEAD>, sem <BODY> e <FOOTER>. Use apenas tags simples como H2, P, etc de HTML Semântico. A receita fará parte apenas de uma parte do site, NÃO É UM SITE NOVO. OU SEJA, NÃO É UM ARQUIVO DE HTML NOVO. Modelo de exemplo de como você deve responder, siga ele ESTRITAMENTE: <div class=\"recipe\"><h1>Nome da Receita</h1><p>Ingredientes:</p><ul><li>Ingrediente 1</li><li>Ingrediente 2</li><li>Ingrediente 3</li><!-- Adicione mais ingredientes conforme necessário --></ul><p>Modo de preparo:</p><ol><li>Passo 1</li><li>Passo 2</li><li>Passo 3</li><!-- Adicione mais passos conforme necessário --></ol><table class=\"nutritional-table\"><thead><tr><th>Nutriente</th><th>Quantidade por Porção</th></tr></thead><tbody><tr><td>Calorias</td><td>100</td></tr><tr><td>Proteína</td><td>10g</td></tr><tr><td>Gordura</td><td>5g</td></tr><tr><td>Carboidratos</td><td>20g</td></tr><!-- Adicione mais nutrientes conforme necessário --></tbody></table></div>`;
+    const prompt = `Analise a imagem e se não houver ingredientes válidos não faça nenhuma receita e apenas use o modelo para retornar que não foram inseridos ingredientes válidos. Caso haja ingredientes REAIS na imagem faça uma receita gostosa, nutritiva, com os passos bem detalhados e criativa usando os ingredientes da imagem.  Envie apenas com as tags html e no final uma tabela nutricional. Envie o texto sem o DOCTYPE, sem a tag <HTML>, sem <HEAD>, sem <BODY> e <FOOTER>. Use apenas tags simples como H2, P, etc de HTML Semântico. A receita fará parte apenas de uma parte do site, NÃO É UM SITE NOVO. OU SEJA, NÃO É UM ARQUIVO DE HTML NOVO. Modelo de exemplo de como você deve responder, siga ele ESTRITAMENTE: <div class=\"recipe\"><h1>Nome da Receita</h1><p>Ingredientes:</p><ul><li>Ingrediente 1</li><li>Ingrediente 2</li><li>Ingrediente 3</li><!-- Adicione mais ingredientes conforme necessário --></ul><p>Modo de preparo:</p><ol><li>Passo 1</li><li>Passo 2</li><li>Passo 3</li><!-- Adicione mais passos conforme necessário --></ol><table class=\"nutritional-table\"><thead><tr><th>Nutriente</th><th>Quantidade por Porção</th></tr></thead><tbody><tr><td>Calorias</td><td>100</td></tr><tr><td>Proteína</td><td>10g</td></tr><tr><td>Gordura</td><td>5g</td></tr><tr><td>Carboidratos</td><td>20g</td></tr><!-- Adicione mais nutrientes conforme necessário --></tbody></table></div>`;
 
     const fileInputEl = file;
     const imageParts = await fileToGenerativePart(fileInputEl)
@@ -71,8 +71,8 @@ const App = () => {
     const result = await model.generateContent([prompt, imageParts]);
     const response = await result.response;
     const text = response.text();
-    const verify = await verifyHTML(text)
-    setRecipe(verify);
+    // const verify = await verifyHTML(text)
+    setRecipe(text);
     setLoading(false);
   
 
