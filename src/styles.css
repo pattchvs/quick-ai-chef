@@ -63,3 +63,9 @@ body {
   .loading img{
     border-radius: 50px;
   }
+
+  .btn-back{
+    border: 1px solid blue;
+    align-items: end;
+    justify-content: end;
+  }
