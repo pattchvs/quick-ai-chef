@@ -12,7 +12,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("AIzaSyBnpqlrvuvtz9eATjcxJieHrAZIUXsPqGM")
+  const genAI = new GoogleGenerativeAI("Sua key da API do gemini aqui")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
 
