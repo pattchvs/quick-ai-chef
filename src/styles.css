@@ -69,3 +69,9 @@ body {
     align-items: end;
     justify-content: end;
   }
+  .mainSection{
+    display: flex;
+    gap: 40vh;
+    align-items: center;
+    justify-content: center;
+  }

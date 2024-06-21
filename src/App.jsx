@@ -12,7 +12,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("Insira sua key da Api do Google Gemini aqui")
+  const genAI = new GoogleGenerativeAI("AIzaSyBnpqlrvuvtz9eATjcxJieHrAZIUXsPqGM")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
 
@@ -129,23 +129,29 @@ const App = () => {
         <><div className="loading"><img src={mainImage} alt="Cozinha" style={{ width: '20%', marginBottom: '20px' }} /><p>Gerando sua resposta...</p></div></> 
       ) : (
         <>
-          
-          <div className="buttons">
-            
+        <div className="mainSection">
+          <div className="mainImg">
+              <img src={mainImage} style={{ width: "20rem", borderRadius: "30px"}} alt="" />
+            </div>
+            {!recipe &&
+            <div className="buttons">
+              
 
-            {!recipe && <Button onClick={generateDailyRecipe} text="Gerar Receita Aleatória" />} 
-            {!recipe && <RecipeGenerator onGenerate={generateRecipe} text="Gerar Receita Com Ingredientes" />}
-            {!recipe && <RecipeImage onGenerate={generateRecipeWithImage} text="Gerar Receita Com Ingredientes" />}
-            {!recipe && <Doubt onGenerate={answerDoubt} text="Dúvidas na cozinha? Pode me perguntar" />}
-          </div>
-          
-          <div className="recipe-part">
+              <Button onClick={generateDailyRecipe} text="Gerar Receita Aleatória" /> 
+              <RecipeGenerator onGenerate={generateRecipe} text="Gerar Receita Com Ingredientes" />
+              <RecipeImage onGenerate={generateRecipeWithImage} text="Gerar Receita Com Ingredientes" />
+              <Doubt onGenerate={answerDoubt} text="Dúvidas na cozinha? Pode me perguntar" />
+            </div>
+            }
             
+              
 
-            {recipe && <Recipe recipe={recipe} />}
+              {recipe && <div className="recipe-part"><Recipe recipe={recipe} /></div>}
+              
             
-          </div>
           
+          
+        </div>
           
         </>
       )}
