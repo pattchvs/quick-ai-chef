@@ -14,7 +14,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("Insira Key Aqui")
+  const genAI = new GoogleGenerativeAI("Sua chave da API")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
  
@@ -173,7 +173,7 @@ const App = () => {
         <div className="mainSection">
           <div className="imgSection">
             <div className="buttonBack">
-            {recipe && <BackBtn onClick={clearRecipe} text={"Retornar"}></BackBtn>}
+            
             </div>
             
           <div className="mainImg">
@@ -193,6 +193,11 @@ const App = () => {
           }
           {recipe && 
           <div className='mainRecipe'>
+            <div class="outer yosemite">
+                <div onClick={clearRecipe} class="dot red"></div>
+                <div class="dot amber"></div>
+                <div class="dot green"></div>
+            </div>
             <div className="recipe-part"><Recipe recipe={recipe} /></div>
           </div>
           }
