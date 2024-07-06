@@ -22,7 +22,7 @@ const Doubt = ({ onGenerate }) => {
   return (
     <div>
       {!showForm && (
-        <button onClick={handleButtonClick}>Perguntar ao chefe</button>
+        <button className='mainButton' onClick={handleButtonClick}>Perguntar ao chefe</button>
       )}
       {showForm && (
         <form onSubmit={handleSubmit}>

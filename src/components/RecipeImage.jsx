@@ -32,7 +32,7 @@ const RecipeImage = ({ onGenerate }) => {
   return (
     <div>
       {!showForm && (
-        <button onClick={handleButtonClick}>Gerar receita com imagem dos ingredientes</button>
+        <button className='mainButton' onClick={handleButtonClick}>Gerar receita com imagem dos ingredientes</button>
       )}
       {showForm && (
         <form onSubmit={handleSubmit}>

@@ -1,7 +1,7 @@
 import React from 'react';
-import './Button.css'; 
+import './BackBtn.css'; 
 const BackBtn = ({ onClick, text }) => {
-  return <button onClick={onClick}>{text}</button>;
+  return <button  onClick={onClick}>Voltar</button>;
 };
 
 export default BackBtn;

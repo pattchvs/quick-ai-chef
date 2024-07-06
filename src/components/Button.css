@@ -1,7 +1,10 @@
-button{
+
+.mainButton{
+    background-color: beige;
     margin: 20px;
     width: 300px;
     padding: 20px;
     font-size: 20px;
+    color: #0f0f0f;
 }
 

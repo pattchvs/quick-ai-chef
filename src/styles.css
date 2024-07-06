@@ -5,7 +5,7 @@ body {
 
     justify-content: center;
     align-items: center;
-    height: 100vh;
+
     overflow: hidden;
   
   }
@@ -65,13 +65,112 @@ body {
   }
 
   .btn-back{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     align-items: end;
     justify-content: end;
   }
   .mainSection{
     display: flex;
-    gap: 40vh;
+    gap: 1vh;
     align-items: center;
     justify-content: center;
+
+    height: 90vh;
+    width: 150vh;
+    
   }
+  .main-container{
+
+    border: 1px solid blue;
+    overflow: hidden;
+    height: 100%;
+
+  }
+
+  .mainButtons{
+    width: 50vh;
+  }
+  .mainRecipe{
+    width: 100vh;
+    margin-left: 10vh;
+    height: 100%;
+  }
+
+  .mainImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+ .buttonBack{
+ 
+  
+  display: flex;
+  padding-left: -5vh;
+  justify-content: left;
+ }
+
+ .mainImg{
+  border: 1px solid #fafafa;
+  border-radius: 40vh !important;
+  margin: 10px;
+  background-color: #fafafa;
+ }
+ header{
+  background-color: #fafafa;
+  height: 12vh;
+  padding-top: 1rem;
+  
+ }
+ .imageInfo{
+  
+  margin-left: 1rem;
+  width: 40%;
+  height: 8vh;
+  overflow: hidden;
+
+  background-color: #fafafa;
+ }
+ .imageInfo.expanded{
+  transition: 0.5s;
+  /* margin-top: 1vh; */
+  padding:2vh ;
+  height: 28vh;
+  border-radius: 20px;
+  width: 40%;
+  overflow: visible;
+  background-color: #74d0e0;
+  cursor: pointer;
+  /* border: 1px solid yellow; */
+  
+ }
+ .imageInfo.expanded .mySelf{
+  
+  /* border: 1px solid #000; */
+  justify-content: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #0f0f0f;
+  
+  
+ }
+ .imageInfo.expanded .mySelf img{
+  
+  /* border: 1px solid green; */
+  margin-left: 0px;
+  
+  
+ }
+ .profilePic{
+  margin-left: 1rem;
+  /* margin-top: 1vh; */
+  border-radius: 50px;
+  width: 8vh;
+ }
+
+ .mySelf{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* margin-top: 1vh; */
+  
+ }

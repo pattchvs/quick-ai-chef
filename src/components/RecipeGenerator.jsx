@@ -22,7 +22,7 @@ const RecipeGenerator = ({ onGenerate }) => {
   return (
     <div>
       {!showForm && (
-        <button onClick={handleButtonClick}>Gerar Receita com Ingredientes</button>
+        <button className='mainButton' onClick={handleButtonClick}>Gerar Receita com Ingredientes</button>
       )}
       {showForm && (
         <form onSubmit={handleSubmit}>
