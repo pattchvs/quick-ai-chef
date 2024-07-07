@@ -5,6 +5,7 @@ import './Recipe.css'
 
 const Recipe = ({ recipe }) => {
   const ingredientes = recipe.ingredientes
+  const instrucoes = recipe.instrucoes
   console.log(ingredientes)
   return (
 
@@ -14,9 +15,11 @@ const Recipe = ({ recipe }) => {
         <section className="title">
           <h2>{recipe.nome}</h2>
           <h3>{recipe.descricao}</h3>
-          <h4>Tempo de preparo: {recipe.tempo_preparo}</h4>
-          <h4>Tempo de cozimento: {recipe.tempo_cozimento}</h4>    
+          <h4>Tempo de cozimento: {recipe.tempo_cozimento}</h4>  
+          <h4>Tempo de preparo: {recipe.tempo_preparo}</h4>  
+          <h4>Rendimento: {recipe.rendimento}</h4>
           <h4>Dificuldade: {recipe.dificuldade}</h4> 
+
           <div className="ingredients-table">
             <table>
               <thead>
@@ -28,16 +31,18 @@ const Recipe = ({ recipe }) => {
               <tbody>
               {ingredientes.map((ingrediente, index)=>(
                 <tr>
-                  <td id='teste'>{ingrediente.nome}</td>
-                  <td id="teste" className='ingredients-quantity'>{ingrediente.quantidade} {ingrediente.unidade}</td>
+                  <td>{ingrediente.nome}</td>
+                  <td className='ingredients-quantity'>{ingrediente.quantidade} {ingrediente.unidade}</td>
                 </tr>
                     ))}
-                
+              
               </tbody>
             </table>
-
-          </div>
-          
+          </div>  
+          <h3>Instruções:</h3>
+          {instrucoes.map((instrucao, index)=>(
+          <p>{index+1} - {instrucao}</p>
+          ))}
         </section>
       </div>
         

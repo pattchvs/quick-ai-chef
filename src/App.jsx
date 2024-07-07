@@ -6,7 +6,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import RecipeGenerator from './components/RecipeGenerator';
 import Doubt from './components/Doubt';
 import mainImage from './assets/mainImage.png'
-import profilePic from './assets/profilePic.png'
+import profilePic from './assets/profilePic.jpg'
 import RecipeImage from './components/RecipeImage';
 import './styles.css';
 import BackBtn from './components/BackBtn';
@@ -14,7 +14,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("Sua chave da API")
+  const genAI = new GoogleGenerativeAI("AIzaSyDzgqhLmHHDQUXVriROzzyAaEZvmVRaJmA")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
  
@@ -24,14 +24,20 @@ const App = () => {
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
    
-    const prompt = `Faça uma receita gostosa, nutritiva e criativa usando os seguintes ingredientes: ${ingredients}. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Envie apenas com as tags html e no final uma tabela nutricional. Envie o texto sem o DOCTYPE, sem a tag <HTML>, sem <HEAD>, sem <BODY> e <FOOTER>. Use apenas tags simples como H2, P, etc de HTML Semântico. A receita fará parte apenas de uma parte do site, NÃO É UM SITE NOVO. OU SEJA, NÃO É UM ARQUIVO DE HTML NOVO. Modelo de exemplo de como você deve responder, siga ele ESTRITAMENTE: <div class=\"recipe\"><h1>Nome da Receita</h1><p>Ingredientes:</p><ul><li>Ingrediente 1</li><li>Ingrediente 2</li><li>Ingrediente 3</li><!-- Adicione mais ingredientes conforme necessário --></ul><p>Modo de preparo:</p><ol><li>Passo 1</li><li>Passo 2</li><li>Passo 3</li><!-- Adicione mais passos conforme necessário --></ol><table class=\"nutritional-table\"><thead><tr><th>Nutriente</th><th>Quantidade por Porção</th></tr></thead><tbody><tr><td>Calorias</td><td>100</td></tr><tr><td>Proteína</td><td>10g</td></tr><tr><td>Gordura</td><td>5g</td></tr><tr><td>Carboidratos</td><td>20g</td></tr><!-- Adicione mais nutrientes conforme necessário --></tbody></table></div>`;
+    const prompt = `Faça uma receita gostosa, nutritiva e criativa usando os seguintes ingredientes: ${ingredients}. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Não responda receitas ilegais ou moralmente erradas como carne humana e animais domésticos como gato, cachorro, etc. Envie o texto nesse modelo JSON: {"nome": "", "descricao": "", "tempo_preparo": "", "tempo_cozimento": "", "rendimento": "", "dificuldade": "", "ingredientes": [{"nome": "", "quantidade": "", "unidade": ""}], "instrucoes": [], "tabela_nutricional": {"porcao": "", "valores_diarios": {"calorias": "", "gordura_total": "", "gordura_saturada": "", "colesterol": "", "sodio": "", "carboidratos": "", "fibra_alimentar": "", "acucar": "", "proteina": ""}, "vitaminas_minerais": {"vitamina_a": "", "vitamina_c": "", "calcio": "", "ferro": ""}}, "notas": []}`;
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    const verify = await verifyHTML(text)
-    setRecipe(verify);
-    setLoading(false);
+    // console.log(text)
+    const textFixed = text.slice(7, -4);
+    const textJson = JSON.parse(textFixed)
+    
+    console.log(textJson)
+
+    setRecipe(textJson)
+  
+    setLoading(false); 
   };
   const answerDoubt = async (askedDoubt) => {
     setLoading(true);
@@ -113,8 +119,6 @@ const App = () => {
 
     setRecipe(textJson)
   
-    // const verify = await verifyHTML(text)
-    // setRecipe(verify);
     setLoading(false); 
   };
   const clearRecipe = () =>{
@@ -135,47 +139,39 @@ const App = () => {
     return(text);
 
   }
-  const openWidow = () =>{
-    console.log('entrou')
   
-    const imageInfo = document.querySelector(".imageInfo");
-    imageInfo.classList.toggle("expanded")
-    
 
-  }
-  
   return (
     
-    <div className="main-container">
-      {!loading &&
+    <>
+    {!loading &&
         <div>
           {!recipe &&
           <header>
-            <div className="imageInfo" onMouseEnter={openWidow} >
               <div className='mySelf'>
                 <img className='profilePic' src={profilePic} alt="" />
-                <h2>Eric Patrick</h2>
+                <p className='myName'>Eric Patrick</p>
+              </div>
+              <div className='social'>
+              <a href="https://github.com/pattchvs/"><i className="fa-brands fa-github-alt"></i></a>
+              <a href="https://www.linkedin.com/in/pattchvs/"><i className="fa-brands fa-linkedin-in"></i></a>
               </div>
               
-              <h3>Desenvolvido por Eric Patrick</h3>
               
-              <p>&copy; 2024</p>
-            </div>
           </header>
           }
         </div>
       }
+    <div className="main-container">
+      
       <div className="container">
       {loading ? (
-        <><div className="loading"><img src={mainImage} alt="Cozinha" style={{ width: '20%', marginBottom: '20px' }} /><p>Gerando sua resposta...</p></div></> 
+        <><div className="loading"><img src={mainImage} alt="Cozinha"  /><p>Gerando sua resposta...</p></div></> 
       ) : (
         <>
         <div className="mainSection">
           <div className="imgSection">
-            <div className="buttonBack">
-            
-            </div>
-            
+         
           <div className="mainImg">
               <img className='mainImgFile' src={mainImage} style={{ width: "20rem", borderRadius: "30px"}} alt="" />
           </div>
@@ -208,6 +204,7 @@ const App = () => {
       )}
       </div>
     </div>
+    </>
   );
 };
 
