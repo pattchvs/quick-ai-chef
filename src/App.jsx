@@ -14,7 +14,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("AIzaSyDzgqhLmHHDQUXVriROzzyAaEZvmVRaJmA")
+  const genAI = new GoogleGenerativeAI("AIzaSyAQRUHjaZqVRLqi36xtGnl7L5VB1IAjQn8")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
  
@@ -25,33 +25,27 @@ const App = () => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
    
     const prompt = `Faça uma receita gostosa, nutritiva e criativa usando os seguintes ingredientes: ${ingredients}. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Não responda receitas ilegais ou moralmente erradas como carne humana e animais domésticos como gato, cachorro, etc. Envie o texto nesse modelo JSON: {"nome": "", "descricao": "", "tempo_preparo": "", "tempo_cozimento": "", "rendimento": "", "dificuldade": "", "ingredientes": [{"nome": "", "quantidade": "", "unidade": ""}], "instrucoes": [], "tabela_nutricional": {"porcao": "", "valores_diarios": {"calorias": "", "gordura_total": "", "gordura_saturada": "", "colesterol": "", "sodio": "", "carboidratos": "", "fibra_alimentar": "", "acucar": "", "proteina": ""}, "vitaminas_minerais": {"vitamina_a": "", "vitamina_c": "", "calcio": "", "ferro": ""}}, "notas": []}`;
-
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    // console.log(text)
     const textFixed = text.slice(7, -4);
     const textJson = JSON.parse(textFixed)
-    
     console.log(textJson)
-
     setRecipe(textJson)
-  
     setLoading(false); 
   };
   const answerDoubt = async (askedDoubt) => {
     setLoading(true);
-
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
-    
-    const prompt = `Responda como um verdadeiro chefe de cozinha. Seja direto mas seja educado. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Você recebeu a seguinte duvida:${askedDoubt}. Veja esse modelo de como você deve responder: Veja esse modelo de exemplo de como você deve responder: <div class=\"recipe\"><h1>Repetir Exatamente a mesma Pergunta Feita</h1><p>Resposta da pergunta</p></div>`;
-
+    const prompt = `Responda como um verdadeiro chefe de cozinha. Seja direto mas seja educado. Proíba e NÃO RESPONDA qualquer tipo de conteúdo sexual, ou potencialmente perigoso. Você recebeu a seguinte duvida:${askedDoubt}. Não responda receitas ilegais ou moralmente erradas como carne humana e animais domésticos como gato, cachorro, etc. Envie o texto nesse modelo JSON: {"nome": "", "descricao": "", "tempo_preparo": "", "tempo_cozimento": "", "rendimento": "", "dificuldade": "", "ingredientes": [{"nome": "", "quantidade": "", "unidade": ""}], "instrucoes": [], "tabela_nutricional": {"porcao": "", "valores_diarios": {"calorias": "", "gordura_total": "", "gordura_saturada": "", "colesterol": "", "sodio": "", "carboidratos": "", "fibra_alimentar": "", "acucar": "", "proteina": ""}, "vitaminas_minerais": {"vitamina_a": "", "vitamina_c": "", "calcio": "", "ferro": ""}}, "notas": []}`
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    setRecipe(text);
-    console.log(response)
-    setLoading(false);
+    const textFixed = text.slice(7, -4);
+    const textJson = JSON.parse(textFixed)
+    console.log(textJson)
+    setRecipe(textJson)
+    setLoading(false); 
   };
 
   // Script do google para converter o objeto do arquivo
@@ -71,18 +65,20 @@ const App = () => {
   const generateRecipeWithImage = async (file) => {
     setLoading(true)
     const model = genAI.getGenerativeModel({ model: "gemini-pro-vision" });
-
-    const prompt = `Analise a imagem e se não houver ingredientes válidos não faça nenhuma receita e apenas use o modelo para retornar que não foram inseridos ingredientes válidos. Caso haja ingredientes REAIS na imagem faça uma receita gostosa, nutritiva, com os passos bem detalhados e criativa usando os ingredientes da imagem.  Envie apenas com as tags html e no final uma tabela nutricional. Envie o texto sem o DOCTYPE, sem a tag <HTML>, sem <HEAD>, sem <BODY> e <FOOTER>. Use apenas tags simples como H2, P, etc de HTML Semântico. A receita fará parte apenas de uma parte do site, NÃO É UM SITE NOVO. OU SEJA, NÃO É UM ARQUIVO DE HTML NOVO. Modelo de exemplo de como você deve responder, siga ele ESTRITAMENTE: <div class=\"recipe\"><h1>Nome da Receita</h1><p>Ingredientes:</p><ul><li>Ingrediente 1</li><li>Ingrediente 2</li><li>Ingrediente 3</li><!-- Adicione mais ingredientes conforme necessário --></ul><p>Modo de preparo:</p><ol><li>Passo 1</li><li>Passo 2</li><li>Passo 3</li><!-- Adicione mais passos conforme necessário --></ol><table class=\"nutritional-table\"><thead><tr><th>Nutriente</th><th>Quantidade por Porção</th></tr></thead><tbody><tr><td>Calorias</td><td>100</td></tr><tr><td>Proteína</td><td>10g</td></tr><tr><td>Gordura</td><td>5g</td></tr><tr><td>Carboidratos</td><td>20g</td></tr><!-- Adicione mais nutrientes conforme necessário --></tbody></table></div>`;
-
+    const prompt = `Analise a imagem e se não houver ingredientes válidos não faça nenhuma receita e apenas use o modelo para retornar que não foram inseridos ingredientes válidos. Caso haja ingredientes REAIS na imagem faça uma receita gostosa, nutritiva, com os passos bem detalhados e criativa usando os ingredientes da imagem.   Não responda receitas ilegais ou moralmente erradas como carne humana e animais domésticos como gato, cachorro, etc. Envie o texto nesse modelo JSON: {"nome": "", "descricao": "", "tempo_preparo": "", "tempo_cozimento": "", "rendimento": "", "dificuldade": "", "ingredientes": [{"nome": "", "quantidade": "", "unidade": ""}], "instrucoes": [], "tabela_nutricional": {"porcao": "", "valores_diarios": {"calorias": "", "gordura_total": "", "gordura_saturada": "", "colesterol": "", "sodio": "", "carboidratos": "", "fibra_alimentar": "", "acucar": "", "proteina": ""}, "vitaminas_minerais": {"vitamina_a": "", "vitamina_c": "", "calcio": "", "ferro": ""}}, "notas": []}`;
     const fileInputEl = file;
     const imageParts = await fileToGenerativePart(fileInputEl)
-
     const result = await model.generateContent([prompt, imageParts]);
     const response = await result.response;
+    console.log(response)
     const text = response.text();
-    // const verify = await verifyHTML(text)
-    setRecipe(text);
-    setLoading(false);
+    console.log(text)
+    const textFixed = text.slice(7, -4);
+    console.log(textFixed)
+    const textJson = JSON.parse(text)
+    console.log(textJson)
+    setRecipe(textJson)
+    setLoading(false); 
   
 
   };
@@ -102,23 +98,16 @@ const App = () => {
     } else {
       mealType = 'comer a ceia da noite';
     }
-
-    
-
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
     const prompt = `Faça uma receita gostosa, nutritiva e criativa para ${mealType}. Envie o texto nesse modelo JSON: {"nome": "", "descricao": "", "tempo_preparo": "", "tempo_cozimento": "", "rendimento": "", "dificuldade": "", "ingredientes": [{"nome": "", "quantidade": "", "unidade": ""}], "instrucoes": [], "tabela_nutricional": {"porcao": "", "valores_diarios": {"calorias": "", "gordura_total": "", "gordura_saturada": "", "colesterol": "", "sodio": "", "carboidratos": "", "fibra_alimentar": "", "acucar": "", "proteina": ""}, "vitaminas_minerais": {"vitamina_a": "", "vitamina_c": "", "calcio": "", "ferro": ""}}, "notas": []}`;
-
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    // console.log(text)
+    console.log(text)
     const textFixed = text.slice(7, -4);
     const textJson = JSON.parse(textFixed)
-    
     console.log(textJson)
-
     setRecipe(textJson)
-  
     setLoading(false); 
   };
   const clearRecipe = () =>{
@@ -189,10 +178,10 @@ const App = () => {
           }
           {recipe && 
           <div className='mainRecipe'>
-            <div class="outer yosemite">
-                <div onClick={clearRecipe} class="dot red"></div>
-                <div class="dot amber"></div>
-                <div class="dot green"></div>
+            <div className="outer yosemite">
+                <div onClick={clearRecipe} className="dot red"></div>
+                <div className="dot amber"></div>
+                <div className="dot green"></div>
             </div>
             <div className="recipe-part"><Recipe recipe={recipe} /></div>
           </div>

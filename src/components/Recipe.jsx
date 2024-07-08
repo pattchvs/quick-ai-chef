@@ -30,7 +30,7 @@ const Recipe = ({ recipe }) => {
               </thead>
               <tbody>
               {ingredientes.map((ingrediente, index)=>(
-                <tr>
+                <tr key={index}>
                   <td>{ingrediente.nome}</td>
                   <td className='ingredients-quantity'>{ingrediente.quantidade} {ingrediente.unidade}</td>
                 </tr>
@@ -41,7 +41,7 @@ const Recipe = ({ recipe }) => {
           </div>  
           <h3>Instruções:</h3>
           {instrucoes.map((instrucao, index)=>(
-          <p>{index+1} - {instrucao}</p>
+          <p key={index}>{index+1} - {instrucao}</p>
           ))}
         </section>
       </div>
