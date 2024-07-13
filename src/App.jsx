@@ -14,7 +14,7 @@ import BackBtn from './components/BackBtn';
 
 
 const App = () => {
-  const genAI = new GoogleGenerativeAI("Sua key aqui")
+  const genAI = new GoogleGenerativeAI("Sua chave aqui")
   const [recipe, setRecipe] = useState('');
   const [loading, setLoading] = useState(false); 
  
